@@ -1,0 +1,14 @@
+{
+  "name": "gamia",
+  "version": "1.0.0",
+  "description": "Gamia is an AI based team collaboration project. The main principle used is MAMBE or Minimum Action, Maximum Benefit.",
+  "scripts": {
+    
+  },
+  "author": "Samuel Ferrer",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "guid": "^0.0.12"
+  }
+}

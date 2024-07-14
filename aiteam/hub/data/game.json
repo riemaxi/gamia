@@ -1,0 +1,28 @@
+{
+    "setting":{
+			"size": {"width": 100, "height": 100 },
+			
+			"gate": {
+				"size" : 10
+			},
+			
+			"distance" : {
+				"kick" : 6
+			}
+	},
+    "state":{
+        "score" : {
+            "a" : 0,
+            "b" : 0
+        },
+        "ball":{"x":30,"y":79},
+        "positions":[
+            {"x":30,"y":80,"number":10, "team": "a"},
+            {"x":40,"y":58,"number":11, "team": "a"},
+            {"x":10,"y":60,"number":12, "team": "a"},
+            {"x":45,"y":20,"number":20, "team": "b"},
+            {"x":45,"y":90,"number":21, "team": "b"},
+            {"x":45,"y":70,"number":22, "team": "b"}
+            ]
+		}
+}

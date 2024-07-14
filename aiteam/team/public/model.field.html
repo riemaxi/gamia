@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Field</title>
+
+    <style>
+        #footballField{
+            height: 800px;
+            aspect-ratio: 4/3;
+        }
+    </style>
+</head>
+<body>
+    <svg id="footballField"></svg>
+
+    <script>
+        function drawFootballField() {
+            const svgNS = "http://www.w3.org/2000/svg";
+            const fieldHeight = 800;
+            const fieldWidth = fieldHeight *  4/3;
+
+            // Create SVG element
+            const svg = document.getElementById("footballField");
+
+            // Draw the grass
+            const grass = document.createElementNS(svgNS, "rect");
+            grass.setAttribute("width", fieldWidth);
+            grass.setAttribute("height", fieldHeight);
+            grass.setAttribute("fill", "green");
+            svg.appendChild(grass);
+
+            // Helper function to draw lines
+            function drawLine(x1, y1, x2, y2, strokeWidth = 5) {
+                const line = document.createElementNS(svgNS, "line");
+                line.setAttribute("x1", x1);
+                line.setAttribute("y1", y1);
+                line.setAttribute("x2", x2);
+                line.setAttribute("y2", y2);
+                line.setAttribute("stroke", "white");
+                line.setAttribute("stroke-width", strokeWidth);
+                svg.appendChild(line);
+            }
+
+            // Helper function to draw rectangles
+            function drawRect(x, y, width, height, strokeWidth = 5) {
+                const rect = document.createElementNS(svgNS, "rect");
+                rect.setAttribute("x", x);
+                rect.setAttribute("y", y);
+                rect.setAttribute("width", width);
+                rect.setAttribute("height", height);
+                rect.setAttribute("fill", "none");
+                rect.setAttribute("stroke", "white");
+                rect.setAttribute("stroke-width", strokeWidth);
+                svg.appendChild(rect);
+            }
+
+            // Helper function to draw circles
+            function drawCircle(cx, cy, r, strokeWidth = 5) {
+                const circle = document.createElementNS(svgNS, "circle");
+                circle.setAttribute("cx", cx);
+                circle.setAttribute("cy", cy);
+                circle.setAttribute("r", r);
+                circle.setAttribute("fill", "none");
+                circle.setAttribute("stroke", "white");
+                circle.setAttribute("stroke-width", strokeWidth);
+                svg.appendChild(circle);
+            }
+
+            // Draw boundary lines
+            drawRect(5, 5, fieldWidth - 10, fieldHeight - 10);
+
+            // Draw center line
+            drawLine(fieldWidth / 2, 5, fieldWidth / 2, fieldHeight - 5);
+
+            // Draw center circle
+            drawCircle(fieldWidth / 2, fieldHeight / 2, fieldHeight * 0.0875);
+
+            // Draw center spot
+            drawCircle(fieldWidth / 2, fieldHeight / 2, 2);
+
+            // Draw penalty areas
+            drawRect(5, fieldHeight / 2 - fieldHeight * 0.1, fieldWidth * 0.1625, fieldHeight * 0.2);
+            drawRect(fieldWidth - fieldWidth * 0.1625 - 5, fieldHeight / 2 - fieldHeight * 0.1, fieldWidth * 0.1625, fieldHeight * 0.2);
+
+            // Draw goal areas
+            drawRect(5, fieldHeight / 2 - fieldHeight * 0.04375, fieldWidth * 0.0625, fieldHeight * 0.0875);
+            drawRect(fieldWidth - fieldWidth * 0.0625 - 5, fieldHeight / 2 - fieldHeight * 0.04375, fieldWidth * 0.0625, fieldHeight * 0.0875);
+
+            // Draw penalty spots
+            drawCircle(fieldWidth * 0.10625, fieldHeight / 2, 2);
+            drawCircle(fieldWidth - fieldWidth * 0.10625, fieldHeight / 2, 2);
+
+            // Draw penalty arcs
+            //drawArc(fieldWidth * 0.10625, fieldHeight / 2, fieldHeight * 0.0875, 0.78, 2.36);
+            //drawArc(fieldWidth - fieldWidth * 0.10625, fieldHeight / 2, fieldHeight * 0.0875, -0.78, -2.36);
+
+            // Helper function to draw arcs
+            function drawArc(cx, cy, r, startAngle, endAngle, strokeWidth = 5) {
+                const largeArcFlag = endAngle - startAngle <= Math.PI ? "0" : "1";
+                const startX = cx + r * Math.cos(startAngle);
+                const startY = cy + r * Math.sin(startAngle);
+                const endX = cx + r * Math.cos(endAngle);
+                const endY = cy + r * Math.sin(endAngle);
+                const pathData = `M ${startX} ${startY} A ${r} ${r} 0 ${largeArcFlag} 1 ${endX} ${endY}`;
+                const path = document.createElementNS(svgNS, "path");
+                path.setAttribute("d", pathData);
+                path.setAttribute("fill", "none");
+                path.setAttribute("stroke", "white");
+                path.setAttribute("stroke-width", strokeWidth);
+                svg.appendChild(path);
+            }
+        }
+
+        drawFootballField();
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+const nextMove = require('./agent.move')
+
+console.log(nextMove)
+
+module.exports = class agent{
+    constructor(config){
+        this.number = config.number
+
+    }
+
+    init(data){
+        this.data = data
+        this.state = this.data.state
+        this.positions = this.state.positions
+        this.position = this.state.positions.find(item => item.number == this.number)
+
+        this.goal = this.position.team == 'a' ? {x: 50, y: 0} : {x: 50, y: 100}
+
+    }
+
+    get mates(){
+        return this.positions.filter(item => item.team == this.position.team)
+    }
+
+    chooseMate(){
+        let mates = this.mates
+        return mates[Math.floor(Math.random()*mates.length)]
+    }
+
+    next(state, data, handle){
+        this.data.state = state
+
+        let {x, y} = nextMove(this.data, this.number, this.goal)
+
+        this.position.x = x
+        this.position.y = y
+
+        if (state.ball.owner == this.number){
+
+            let mate = this.chooseMate()
+            let goal = Math.random()*100 < 20
+            let x = goal ? this.goal.x : mate.x
+            let y = goal ? this.goal.y : mate.y
+
+            if (data && Math.random()*100 > 50){
+                x = data.x
+                y = data.y 
+            }
+    
+            handle({position: this.position, ball: {x,y}})    
+        }else
+            handle({position: this.position})
+    }
+}
