@@ -46,7 +46,7 @@ let system = new class extends require('./system'){
         let {id, to, data} = e.detail
         switch(id){
             case 'action' : game.addVantage(data); break;
-            case 'player.reaction': game.update(data); this.broadcast(this.peers.desks, {id: 'transition', to: '*', data}); break;
+            case 'player.reaction': this.broadcast(this.peers.desks, {id: 'transition', to: '*', data : game.update(data)}); break;
             case 'tick' : this.broadcast(this.peers.players, {id: 'action', data: game.getVentage(), state: game.state}); break;
         }
     }

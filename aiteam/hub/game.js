@@ -40,9 +40,9 @@ module.exports = class extends DataObject{
 
             if (this.goal(data.ball)){
                 this.state.score[position.team] += 1
-                this.onGoal(this.state.score)
             }
         }
+        return data
     }
 
     takeBall(x, y, number){

@@ -25,6 +25,7 @@ export default class UI{
 
     update(id, data){
         switch(id){
+            case 'reset' : this.data = data; break;
             case 'start' : console.log('start'); break;
             case 'transition': this.doTransition(data); break;
             case 'goal' : this.doGoal(data); break;

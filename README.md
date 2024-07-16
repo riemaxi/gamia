@@ -37,3 +37,5 @@ Define a strategy for the players by either:
 Coding it yourself, or
 Prompting a Large Language Model (LLM) to generate the strategy.
 For further guidance, please refer to the project documentation or README.
+
+You can also find the explanation about the parameters in the file 'agent.move.js', under player/template.js

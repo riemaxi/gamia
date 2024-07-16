@@ -15,7 +15,6 @@ let system = new class extends require('./system'){
 
     onResponse(r){
         let {id, to, data} = r.detail
-        console.log('response', r)
         switch(id){
             case 'init' : desk.notify('init', to,  {session: {id: to}, game: data}); break;
             default: desk.notify('response', to, {id, data})
@@ -24,9 +23,9 @@ let system = new class extends require('./system'){
     }
 
     onEvent(e){
-        console.log('event', e)
         let {id, to, data} = e.detail
         switch(id){
+            case 'init' : desk.notifyAll('event', {id : 'reset', data}); break;
             case 'transition' :  desk.notifyAll('event', {id, data}); break;
             default: to=='*'? desk.notifyAll('event', {id, data}) : desk.notify('event', to, {id, data});
         }
@@ -56,7 +55,7 @@ class Session{
 
 
     notify(id, data){
-        console.log(id, data)
+        console.log('notify', id, data)
         this.socket.emit(id, data)
     }
 
